@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
 from pathlib import Path
@@ -9,7 +10,17 @@ import os
 import shutil
 import time
 
+#allowed_origins = ["http://0.0.0.0:5500"]
+
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["GET", "POST"],
+    allow_headers=["*"],
+)
 
 ENCODING_DIR = "temp"
 os.makedirs(ENCODING_DIR, exist_ok=True)

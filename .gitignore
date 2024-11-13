@@ -2,3 +2,5 @@ venv
 finished
 temp
 __pycache__
+server.crt
+server.key
