@@ -1,5 +1,5 @@
 body {
-  background-image: url("https://www.startpage.com/av/proxy-image?piurl=http%3A%2F%2Fgetwallpapers.com%2Fwallpaper%2Ffull%2F1%2F8%2Fc%2F34713.jpg&sp=1731463098T1f7eebe1ae7bf6f9930878e0886d38eb530c0ffa204357162a0f3ec0e9740f52");
+  background-image: url("");
   background-size: cover;
   background-position: center;
 }
@@ -39,6 +39,10 @@ h1 {
   font-size: 4vw;
 }
 
-input::placeholder {
+#url::placeholder {
   text-align: center;
+}
+
+#responseList {
+  list-style-type: none;
 }
