@@ -1,6 +1,6 @@
 const api_address = "https://0.0.0.0:8000";
 
-    function getResolutions() {
+    async function getResolutions() {
         // Get the value from the input field
         var InputUrl = document.getElementById("url").value;
 
@@ -39,7 +39,7 @@ const api_address = "https://0.0.0.0:8000";
                         listItem.textContent = `${notes} | ${filesize} MB`;
 
                         listItem.addEventListener('click', () => {
-                            //yet to add the function to prepare download
+                            postVideoRequest(InputUrl,item.format_id);
                         });
                     
                         listContainer.appendChild(listItem);
@@ -52,8 +52,28 @@ const api_address = "https://0.0.0.0:8000";
             const listContainer = document.getElementById('responseList');
             listContainer.innerHTML = `Error: ${error.message}`;
         });
-    }
+    };
 
-function postVideoRequest(url,format_id){
-
+async function postVideoRequest(url,format_id){
+    const data =
+    {
+        url: `${url}`,
+        video_format_id: `${format_id}` 
+    };
+    
+    fetch((`${api_address}/process_video/`),{
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data)
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        const responseData = response.text();
+        console.log(responseData);
+        return response;
+    })
 }
