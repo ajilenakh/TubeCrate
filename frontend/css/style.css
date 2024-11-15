@@ -1,0 +1,48 @@
+body {
+  background-image: url("");
+  background-size: cover;
+  background-position: center;
+}
+
+.container {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(10px);
+    height: 100%;
+  }
+  
+  .content {
+    width: fit-content;
+    max-width: 75%;
+    background-color: blue;
+    border-radius: 25px;
+    border: 2px solid rgb(255, 255, 255);
+    box-shadow: 0 8px 12px rgba(255, 255, 0, 0.5);
+    padding: 20px;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .content {
+        width: 90%;
+        padding: 15px;
+    }
+}
+
+h1 {
+  font-size: 4vw;
+}
+
+#url::placeholder {
+  text-align: center;
+}
+
+#responseList {
+  list-style-type: none;
+}
