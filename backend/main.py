@@ -106,6 +106,7 @@ async def process_video(request: VideoRequest, background_tasks: BackgroundTasks
         subprocess.run(ydl_cmd, check=True)
 
         video_path = Path(f"{ENCODING_DIR}/{unique_id}")
+        base_path = video_path
         to_delete = video_path
         files = list(video_path.iterdir())
 
@@ -117,7 +118,15 @@ async def process_video(request: VideoRequest, background_tasks: BackgroundTasks
         # Use background_tasks to schedule the directory deletion after 24 hours
         background_tasks.add_task(delete_old_directory, to_delete)
 
-        return {"video_path": str(video_path)}
+        file_name = str(video_path.relative_to(base_path))
+
+        print(unique_id,file_name)
+        
+        return {
+            'unique_id': unique_id,
+            'file_name': file_name,
+        }
+        
 
     except subprocess.CalledProcessError as e:
         raise HTTPException(status_code=400, detail=f"Error during video processing: {e}")
