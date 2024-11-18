@@ -23,34 +23,48 @@ const api_address = "https://0.0.0.0:8000";
             }
 
             const items = data;
-            const listContainer = document.getElementById('responseList');
+            const refrnceElement = document.getElementById('toDynamicallyLoadSelectElement')
+            const container = document.querySelector('.content')
 
-            // Clean the previous content in the list
-            listContainer.innerHTML = '';
+            const selectElement = document.createElement('select');
+            selectElement.id = 'videoSelect';
+
+            // Insert the select element before the refrenceElement
+            container.insertBefore(selectElement, refrnceElement)
 
             // Looping through each item and create the list
             items.forEach(item => {
                 if (item.format_note && item.highest_filesize) {
                     const notes = item.format_note;
-                    const filesize = (item.highest_filesize / 1000000).toFixed(2);
-
+                    const filesize = (item.highest_filesize / 1000000).toFixed(2);  // Convert to MB
+            
+                    // Check if the format_note matches your regex
                     if (/\p/.test(item.format_note)) {
-                        const listItem = document.createElement('li');
-                        listItem.textContent = `${notes} | ${filesize} MB`;
-
-                        listItem.addEventListener('click', () => {
-                            postVideoRequest(InputUrl,item.format_id);
-                        });
-                    
-                        listContainer.appendChild(listItem);
+                        const option = document.createElement('option');
+                        option.value = item.format_id; 
+                        option.textContent = `${notes} | ${filesize} MB`;
+            
+                        // Add the option to the select element
+                        selectElement.appendChild(option);
                     }
                 }
+            });
+            // change the button to get link
+            const button = document.getElementById('check');
+            button.textContent = 'Get Link';
+            button.id = 'getLinkButton';
+            button.removeAttribute('onclick');
+
+            button.addEventListener('click', function(){
+                (selectElement.value)
+                postVideoRequest(InputUrl, selectElement.value);
+                
             });
         })
         .catch(error => {
             console.error('Error fetching data:', error);
-            const listContainer = document.getElementById('responseList');
-            listContainer.innerHTML = `Error: ${error.message}`;
+            const selectElement = document.getElementById('responseList');
+            selectElement.innerHTML = `Error: ${error.message}`;
         });
     };
 
