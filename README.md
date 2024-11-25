@@ -30,7 +30,7 @@ ________________________________________________________________________________
 
 # Endpoints
 
-1. Get Highest Resolution Video Formats
+## 1. Get Highest Resolution Video Formats
 
 Endpoint: GET /filter_resolution/
 
@@ -39,7 +39,7 @@ Fetches the available video formats for a given URL and returns the highest reso
 
 Query Parameters:
 
-    url (str): The URL of the video to retrieve information from.
+url (str): The URL of the video to retrieve information from.
 
 Response: A list of dictionaries containing the format details with the highest file size for each resolution:
 
@@ -60,7 +60,7 @@ Example Request:
 
 GET /filter_resolution/?url=https://www.youtube.com/watch?v=abcd1234
 
-2. Process Video
+## 2. Process Video
 
 Endpoint: POST /process_video/
 
@@ -94,7 +94,7 @@ Content-Type: application/json
   "video_format_id": "137"
 }
 ```
-3. Download Processed Video
+## 3. Download Processed Video
 
 Endpoint: GET /videos/{unique_id}/{file_name}
 
