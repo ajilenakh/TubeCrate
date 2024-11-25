@@ -74,8 +74,8 @@ Request Body:
   "video_format_id": "137"
 }
 ```
-    url (str): The URL of the video to download.
-    video_format_id (str): The format ID (from the previous endpoint) to specify which format to download.
+url (str): The URL of the video to download.
+video_format_id (str): The format ID (from the previous endpoint) to specify which format to download.
 
 Response: Returns a unique ID for the download and the processed file name:
 
@@ -86,13 +86,14 @@ Response: Returns a unique ID for the download and the processed file name:
 
 Example Request:
 
+```
 POST /process_video/ 
 Content-Type: application/json
 {
   "url": "https://www.youtube.com/watch?v=abcd1234",
   "video_format_id": "137"
 }
-
+```
 3. Download Processed Video
 
 Endpoint: GET /videos/{unique_id}/{file_name}
@@ -102,13 +103,13 @@ Downloads the processed video based on the unique ID and file name provided.
 
 Path Parameters:
 
-    unique_id (str): The unique ID generated when processing the video.
-    file_name (str): The name of the processed video file.
+unique_id (str): The unique ID generated when processing the video.
+file_name (str): The name of the processed video file.
 
 Response: The video file is returned as a downloadable attachment.
 
 Example Request:
 
-GET /videos/a1b2c3d4-e5f6-7g8h9i0j/video_title.mp4
+```GET /videos/a1b2c3d4-e5f6-7g8h9i0j/video_title.mp4```
 
 Response: The processed video will be returned as a downloadable file.
