@@ -1,30 +1,17 @@
 # To start the API
 
-step-1: cd into the backend directory
+#### step 1:
+Install Docker "https://www.docker.com/get-started/"
 
-```cd backend```
+#### step 2:
+cd to the backend directory(```cd backend```) and create the app image:
 
-step-2: create a virtual envirement for the API
-```python -m venv venv```
-           OR
-```python3 -m venv venv```
+```docker build -t tubecrate-backend:latest .```
 
-step-3: start the virtual enviorement
+#### step 3:
+start the app with:
 
-*linux/mac*
-```source /venv/bin/activate```
-*windows*
-```venv\Scripts\activate```
-
-step-4: install the requirements
-```pip install -r \path\to\requirements.txt```
-
-step-5: install yt-dlp
-"https://github.com/yt-dlp/yt-dlp?tab=readme-ov-file#installation"
-
-step-6 start the API
-```uvicorn main:app --reload --host 0.0.0.0 --port 8000```
-
+```docker run -p 8000:8000 tubecrate-backend:latest```
 ____________________________________________________________________________________________________________________
 
 
