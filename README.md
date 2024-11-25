@@ -4,7 +4,7 @@
 Install Docker "https://www.docker.com/get-started/"
 
 #### step 2:
-cd to the backend directory(```cd backend```) and create the app image:
+cd into the backend directory (```cd backend```) and create the app image:
 
 ```docker build -t tubecrate-backend:latest .```
 
