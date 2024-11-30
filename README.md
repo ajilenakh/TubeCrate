@@ -17,6 +17,8 @@ ________________________________________________________________________________
 
 # Endpoints
 
+[__Access SwaggerUI__](http://0.0.0.0:8000/docs#/)
+
 ## 1. Get Highest Resolution Video Formats
 
 Endpoint: GET /filter_resolution/
