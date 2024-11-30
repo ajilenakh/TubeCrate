@@ -9,6 +9,9 @@ import uuid
 import os
 import shutil
 import time
+import re
+import unicodedata
+import emoji
 
 #allowed_origins = ["http://0.0.0.0:5500"]
 
@@ -31,6 +34,27 @@ class URLRequest(BaseModel):
 class VideoRequest(BaseModel):
     url: str
     video_format_id: str
+
+def clean_title(title: str) -> str:
+    # Normalize Unicode characters (e.g., converting accented characters to basic ASCII)
+    title = unicodedata.normalize('NFKD', title)
+    title = ''.join([c for c in title if not unicodedata.combining(c)])  # Remove combining characters
+
+    title = emoji.replace_emoji(title, replace='')  # Remove emojis entirely, or replace with a placeholder
+
+    title = re.sub(r'[<>:"/\\|?*]', '', title)
+
+    title = re.sub(r'\s+', '_', title)  # Replace spaces with underscores
+    title = re.sub(r'[^a-zA-Z0-9-_]', '', title)  # Remove anything that isn't a letter, number, or basic separator
+
+    # Strip leading/trailing whitespace
+    title = title.strip()
+
+    if not title:
+        title = "Untitled"
+
+    return title
+
 
 def delete_old_directory(directory_path: Path):
     """
@@ -115,10 +139,15 @@ async def process_video(request: VideoRequest, background_tasks: BackgroundTasks
         else:
             raise HTTPException(status_code=404, detail="Download failed or multiple files found.")
 
-        # Use background_tasks to schedule the directory deletion after 24 hours
-        background_tasks.add_task(delete_old_directory, to_delete)
+        cleaned_title= clean_title(video_path.stem)
 
-        file_name = str(video_path.relative_to(base_path))
+        new_video_path = video_path.with_name(f"{cleaned_title}{video_path.suffix}")
+        video_path.rename(new_video_path)
+
+        # Use background_tasks to schedule the directory deletion after 24 hours
+        background_tasks.add_task(delete_old_directory, video_path.parent)
+
+        file_name = str(new_video_path.relative_to(Path(ENCODING_DIR)))
 
         print(unique_id,file_name)
         
