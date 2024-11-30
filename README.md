@@ -12,12 +12,14 @@ cd into the backend directory (```cd backend```) and create the app image:
 start the app with:
 
 ```docker run -p 8000:8000 tubecrate-backend:latest```
+
+#### step 4:
+
+[__Access SwaggerUI__](http://0.0.0.0:8000/docs#/)
 ____________________________________________________________________________________________________________________
 
 
 # Endpoints
-
-[__Access SwaggerUI__](http://0.0.0.0:8000/docs#/)
 
 ## 1. Get Highest Resolution Video Formats
 
