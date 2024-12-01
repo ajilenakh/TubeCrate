@@ -147,7 +147,7 @@ async def process_video(request: VideoRequest, background_tasks: BackgroundTasks
         # Use background_tasks to schedule the directory deletion after 24 hours
         background_tasks.add_task(delete_old_directory, video_path.parent)
 
-        file_name = str(new_video_path.relative_to(Path(ENCODING_DIR)))
+        file_name = str(new_video_path.name)
 
         print(unique_id,file_name)
         
